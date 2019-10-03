@@ -14,7 +14,7 @@ public class Poker {
     /**The maximum amount of cards in one hand.**/
     private static final int ONEHASCARDS = 5;
 
-    /**Representing serial numbers of players.**/
+    /**Representing serial numbers (starts from 0) of players.**/
     private static ArrayList<Integer> playerID = new ArrayList<>();
 
     /**Representing the classification of one hand.**/
@@ -235,17 +235,17 @@ public class Poker {
         }
 
 
-//        /*Output the each player's classification of cards*/
-//        for(int i = 0; i < eachPlayerComb.size(); i++)
-//        {
-//            System.out.print("Player " + (i+1) + ": ");
-//            printOut(handClass.get(i), eachPlayerComb.get(i));
-//        }
-//
-//        if(args.length == 5)
-//        {
-//            System.exit(0);
-//        }
+        /*Output each player's classification of cards*/
+        for(int i = 0; i < eachPlayerComb.size(); i++)
+        {
+            System.out.print("Player " + (i+1) + ": ");
+            printOut(handClass.get(i), eachPlayerComb.get(i));
+        }
+
+        if(args.length == 5)
+        {
+            System.exit(0);
+        }
 
         /*Start the comparison and find out winners, if there are more than one winners,
         then those winners hold a draw */
