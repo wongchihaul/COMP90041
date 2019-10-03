@@ -195,6 +195,27 @@ public class Poker {
 
     }
 
+    private static void whoWins (ArrayList<Integer> winner)
+    {
+        switch (winner.size())
+        {
+            case 1:
+                System.out.println("Player " + (winner.get(0) + 1) + " wins.");
+                break;
+            case 2:
+                System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
+                break;
+            default:
+                System.out.print("Players");
+                for(int i = 0; i < winner.size() - 2; i++)
+                {
+                    System.out.print(" " + (winner.get(i) + 1) + ",");
+                }
+                System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
+                        (winner.get(winner.size() - 1) + 1)+" draw.");
+        }
+    }
+
     public static void main(String[] args) {
         if(args.length == 0 || args.length % 5 != 0)
         {
@@ -250,7 +271,7 @@ public class Poker {
 
         /*Start the comparison and find out winners, if there are more than one winners,
         then those winners hold a draw */
-        ArrayList<Integer> winner = new ArrayList<>();
+        ArrayList<Integer> winner;
         if(Compare.isSameClass(handClass))
         {
             winner = Compare.sameClass(handClass.get(0), playerID, eachPlayerComb);
@@ -258,34 +279,9 @@ public class Poker {
         else
         {
             ArrayList<Integer> winToNextTurn = Compare.diffClass(handClass);
-            if(winToNextTurn.size() == 1)
-            {
-                System.out.println("Player " + (winToNextTurn.get(0) + 1) + " wins.");
-            }
-            else        /*More than (including) 2 players have same classification of hand*/
-            {
-                winner = Compare.sameClass(handClass.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerComb);
-                switch (winner.size())
-                {
-                    case 1:
-                        System.out.println("Player " + (winner.get(0) + 1) + " wins.");
-                        break;
-                    case 2:
-                        System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
-                        break;
-                    default:
-                        System.out.print("Players");
-                        for(int i = 0; i < winner.size() - 2; i++)
-                        {
-                            System.out.print(" " + (winner.get(i) + 1) + ",");
-                        }
-                        System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
-                                (winner.get(winner.size() - 1) + 1)+" draw.");
-
-
-                }
-            }
+            winner = Compare.sameClass(handClass.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerComb);
         }
+        whoWins(winner);
 
     }
 }
