@@ -136,7 +136,8 @@ public class Poker {
     }
 
 
-    /**
+
+    /*
      * @Description To give the output that meets requirements, including classification of a hand and the result of
      * a comparision, excluding playerID information.
      * @Parameter [classification, playerComb]
@@ -194,6 +195,11 @@ public class Poker {
 
     }
 
+    /*
+     * @Description //Output the result of the poker gambling.
+     * @Parameter [winner]
+     * @return void
+     **/
     private static void whoWins (ArrayList<Integer> winner)
     {
         if(winner.size() == 1)
@@ -271,16 +277,7 @@ public class Poker {
 
         /*Start the comparison and find out the winner, and if there are more than one winners,
         then find out those who hold a draw. */
-        ArrayList<Integer> winner;
-        if(Compare.isSameClass(handClass))
-        {
-            winner = Compare.sameClass(handClass.get(0), playerID, eachPlayerComb);
-        }
-        else
-        {
-            ArrayList<Integer> winToNextTurn = Compare.diffClass(handClass);
-            winner = Compare.sameClass(handClass.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerComb);
-        }
+        ArrayList<Integer> winner = Compare.finalList(handClass, playerID, eachPlayerComb);
         whoWins(winner);
 
     }

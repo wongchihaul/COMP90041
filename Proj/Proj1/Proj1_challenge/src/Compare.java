@@ -16,6 +16,30 @@ import java.util.Collections;
 
 
 class Compare {
+
+    /*
+     * @Description //Start the comparison and find out the winner, and if there are more than one winners,
+     * then find out those who hold a draw.
+     * @Parameter [handClass, candidate, eachPlayerComb]
+     * @return java.util.ArrayList<java.lang.Integer>
+     **/
+    static ArrayList<Integer> finalList(ArrayList<Combination.Classification> handClass, ArrayList<Integer> candidate,
+                                        ArrayList<Combination> eachPlayerComb)
+    {
+        ArrayList<Integer> winner;
+        if(Compare.isSameClass(handClass))
+        {
+            winner = Compare.sameClass(handClass.get(0), candidate, eachPlayerComb);
+        }
+        else
+        {
+            ArrayList<Integer> winToNextTurn = Compare.diffClass(handClass);
+            winner = Compare.sameClass(handClass.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerComb);
+        }
+        return winner;
+    }
+
+
     /*
      * @Description //Compare every two adjacent classification-type elements, if all of their ordinals are equal,
      * then all of them are same classification
@@ -33,6 +57,7 @@ class Compare {
         }
         return true;
     }
+
 
     /*
      * @Description //Not a same class list. After one comparison, check the size of winToNextTurn list. If the size is
@@ -86,6 +111,7 @@ class Compare {
         }
     }
 
+
     /*
      * @Description //The method will affect the winToNextTurn ArrayList. It will make winToNextTurn ArrayList contain
      * latest winners of current competition. The method is for those same cards of n-of-a-kind and those hands which
@@ -131,6 +157,7 @@ class Compare {
         }
     }
 
+
     /*
      * @Description //It will affect winToNextTurn ArrayList as same as nextTurn_same. However, this method is for those
      * cards other than same cards of n-of-a-kind and those hands which are flush or high card.
@@ -167,6 +194,7 @@ class Compare {
             cnt --;
         }
     }
+
 
     /*
      * @Description //Input a player (i.e. a Combination instance) and get his/her "other card" array list.
