@@ -2,21 +2,24 @@
  * @Author Zhihao Huang
  * @LoginID zhihhuang
  * @ClassName Classification
- * @Description TODO
+ * @Description Combination.java documentation can be instantiated to represent a player's five cards, including their
+ * ranks and suits, and the object also has an ArrayList containing Ranks which have same rank with others, but each
+ * rank in list is distinct(e.g., say player has 8H, 8S, 9H, 9S, 7C, then sameRankGroup will add one 8 and one 9 in
+ * list.) And the Combination class has an enum to represent 9 classifications as well.
+ * IMPORTANT to mention : all ArrayLists are sorted in ascending order.
  * @date 2019-09-30 18:33
  **/
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Combination {
-    public ArrayList<Poker.Rank> sameRankGroup;   //这个array list用以记录每个Classification对象，也即玩家，手中的重复牌组
-    public ArrayList<Poker.Rank> combCardRank; //这个array list用以记录每个玩家的五张手牌的Rank
-    public ArrayList<Poker.Suit> combCardSuit; //
-    //创建 categories of hand 的enum，包含了优先级
+class Combination {
+    private ArrayList<Poker.Rank> sameRankGroup;
+    private ArrayList<Poker.Rank> combCardRank;
+    private ArrayList<Poker.Suit> combCardSuit;
     public enum Classification
     {
-        HighC,               //High card
+        HighC,              //High card
         OneP,               //One pair
         TwoP,               //Two pair
         ThreeK,             //Three of a kind
@@ -27,31 +30,47 @@ public class Combination {
         StraightF,          //Straight flush
     }
 
-    //TODO 初始化Classfication实例的时候记得ArrayList<Poker.Rank> cards需要排好序的
     Combination(ArrayList<Poker.Rank> combCardRank, ArrayList<Poker.Suit> combCardSuit,
-                ArrayList<Poker.Rank> sPG  )
+                ArrayList<Poker.Rank> sameRankGroup  )
     {
         this.combCardRank = combCardRank;
         this.combCardSuit = combCardSuit;
-        this.sameRankGroup = sPG;
+        this.sameRankGroup = sameRankGroup;
     }
 
-//    //Getter
-//    public ArrayList<Poker.Rank> getSamePokerGroup() {
-//        return samePokerGroup;
-//    }
-//
-//    public ArrayList<Poker.Rank> getCards() {
-//        return everyFiveCardRank;
-//    }
-//
-//    public ArrayList<Poker.Suit> getEveryFiveCardSuit() {
-//        return everyFiveCardSuit;
-//    }
+    //Getter
+    ArrayList<Poker.Rank> getSamePokerGroup() {
+        return sameRankGroup;
+    }
 
-    //这个分类class里面的ArrayList<Poker.Rank> cards都是五个一组
+    ArrayList<Poker.Rank> getCombCardRank() {
+        return combCardRank;
+    }
 
-    //输入排好序的Rank类型数组，比较相邻两元素，如果它们的ordinal均相差1，那么是顺子
+    ArrayList<Poker.Suit> getCombCardSuit() {
+        return combCardSuit;
+    }
+
+    /*
+     * @Description //whoAmI is combination of straightAndFlush and whichNK, and I will calling whoAmI directly
+     * in Poker.java to classify the player's hand.
+     * @Parameter [cardRank, cardSuit]
+     * @return Combination.Classification
+     */
+    Classification whoAmI(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit)
+    {
+        if(straightAndFlush(cardRank, cardSuit) != null)
+        {
+            return straightAndFlush(cardRank, cardSuit);
+        }
+        else
+        {
+            return whichNK(cardRank);
+        }
+    }
+
+    /*Input: ascending sorted Rank-type ArrayList*/
+    /*Compare two adjacent elements, if their ordinals are different by 1, then it is a straight*/
     private static boolean isStraight(ArrayList<Poker.Rank> cards)
     {
         for(int i = 1; i < cards.size(); i++){
@@ -62,7 +81,8 @@ public class Combination {
         return true;
     }
 
-    //输入Suit类型数组，比较相邻两元素，如果它们的ordinal均相等，那么是同花
+    /*Input: ascending sorted Rank-type ArrayList*/
+    /*Compare two adjacent elements, if their ordinals are equal, then it is a flush*/
     private static boolean isFlush(ArrayList<Poker.Suit> cards)
     {
         for(int i = 1; i < cards.size(); i++){
@@ -73,7 +93,7 @@ public class Combination {
         return true;
     }
 
-    //判断是不是同花或者顺子或者同花顺；如果不是的话就返回null；
+    /*Determine if it is a flush or a straight or straight flush; if not, return null*/
     public Classification straightAndFlush(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit )
     {
         if(isStraight(cardRank) && isFlush(cardSuit))
@@ -94,10 +114,10 @@ public class Combination {
         }
     }
 
-    //其余情况
+    /*To determine which N_of_a_kind the hand is and whether the hand is High Card or not*/
     public Classification whichNK(ArrayList<Poker.Rank> cards) {
-        int count = 0;    //cnt = 相同元素个数 - 1
-        int flag = 0;   //flag用以将相同元素中的一个放入到tmp arraylist里面
+        int count = 0;    /*used to preliminary classify which N_of_a_Kind or High Card the hand may be*/
+        int flag = 0;   /*used to add distinct Ranks having same rank with others*/
         for (int i = 1; i < cards.size(); i++) {
             if (cards.get(i - 1).ordinal() == cards.get(i).ordinal())
             {
@@ -112,7 +132,7 @@ public class Combination {
                 flag = 0;
             }
         }
-        Collections.sort(sameRankGroup);
+//        Collections.sort(sameRankGroup);
         switch (count) {
             case 0:
                 return Classification.HighC;
@@ -131,6 +151,8 @@ public class Combination {
                 if(sameRankGroup.size() == 2)
                 {
                     int cnt = 0;
+                    /*Calculate the number of repetitions of the first elements in the samePokerGroup in cards
+                     , in order to find out which one belongs to "three cards of same rank" */
                     for(Poker.Rank element : cards) //计算在samePokerGroup中的两个元素在cards中的重复次数，以判断谁是rank of 3 cards，谁是2
                     {
                         if(element.equals(sameRankGroup.get(0)))
@@ -140,7 +162,9 @@ public class Combination {
                     }
                     if(cnt == 3)
                     {
-                        Collections.swap(sameRankGroup, 0, 1); //cnt==3说明samePokerGroup的第一位才是有高优先级的，所以把它排到后面，把原来的第二位排到第一位
+                        /*cnt=3 indicates that the first element of the samePokerGroup has high priority,
+                        so put it to the back and put the original second element to the first place.*/
+                        Collections.swap(sameRankGroup, 0, 1); //
                     }
                     return Classification.FullH;
                 }
@@ -153,17 +177,5 @@ public class Combination {
         }
     }
 
-    //total
-    public Classification whoAmI(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit)
-    {
-        if(straightAndFlush(cardRank, cardSuit) != null)
-        {
-            return straightAndFlush(cardRank, cardSuit);
-        }
-        else
-        {
-            return whichNK(cardRank);
-        }
-    }
 
 }

@@ -145,14 +145,14 @@ public class Poker {
      **/
     private static void printOut(Combination.Classification classification, Combination playerComb)
     {
-        Rank highestOne = playerComb.combCardRank.get(ONEHASCARDS-1);
-        int sameGroupSize = playerComb.sameRankGroup.size();
+        Rank highestOne = playerComb.getCombCardRank().get(ONEHASCARDS-1);
+        int sameGroupSize = playerComb.getSamePokerGroup().size();
         if(sameGroupSize > 0)       /*This hand must be N_of_a_kind.*/
         {
             /*If there is only one element in sameRankGroup, lagerSameOne will get that one. Otherwise, lagerSameOne
              will get the one having higher priority in comparison, while smallerSameOne get the other one. */
-            Rank largerSameOne = playerComb.sameRankGroup.get(sameGroupSize-1);
-            Rank smallerSameOne = playerComb.sameRankGroup.get(0);
+            Rank largerSameOne = playerComb.getSamePokerGroup().get(sameGroupSize-1);
+            Rank smallerSameOne = playerComb.getSamePokerGroup().get(0);
 
             switch(classification)
             {
@@ -228,7 +228,8 @@ public class Poker {
             Collections.sort(cardsRank);
             Collections.sort(cardsSuit);        /*Sort ArrayList in ascending order*/
             Combination player = new Combination(cardsRank, cardsSuit, samePokerGroup );
-            Combination.Classification classification = player.whoAmI(player.combCardRank, player.combCardSuit);
+            Combination.Classification classification = player.whoAmI(player.getCombCardRank(),
+                                                                        player.getCombCardSuit());
             eachPlayerComb.add(player);
             handClass.add(classification);
             playerID.add(i);

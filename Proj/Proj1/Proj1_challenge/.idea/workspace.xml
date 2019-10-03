@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d2c9db59-14b0-4981-8ba1-cf40370be627" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Combination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Combination.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -109,7 +110,7 @@
       <workItem from="1569829237257" duration="1557000" />
       <workItem from="1569832340620" duration="28298000" />
       <workItem from="1570068422423" duration="1495000" />
-      <workItem from="1570080779497" duration="5796000" />
+      <workItem from="1570080779497" duration="8182000" />
     </task>
     <task id="LOCAL-00001" summary="Have a try to use branches">
       <created>1570069668919</created>
@@ -125,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570086193262</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="真·优化注释完Poker.java, 完成进度(1/3)">
+      <created>1570086605855</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1570086605855</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +194,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Have a try to use branches" />
     <MESSAGE value="优化注释完Poker.java, 完成进度(1/3)" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化注释完Poker.java, 完成进度(1/3)" />
+    <MESSAGE value="真·优化注释完Poker.java, 完成进度(1/3)" />
+    <option name="LAST_COMMIT_MESSAGE" value="真·优化注释完Poker.java, 完成进度(1/3)" />
   </component>
 </project>
