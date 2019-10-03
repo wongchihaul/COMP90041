@@ -2,7 +2,8 @@
  * @Author Zhihao Huang
  * @LoginID zhihhuang
  * @ClassName Poker
- * @Description TODO
+ * @Description Poker.java documentation has a main method to meet requirements for outputs of Project 1. And it also
+ * has two enums to represent properties, rank and suit, of poker.
  * @date 2019-09-30 18:04
  **/
 
@@ -10,11 +11,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Poker {
-    static final int ONEHASCARDS = 5;
-    static ArrayList<Integer> playerID = new ArrayList<>();
-    static ArrayList<Classification.Category> handCat = new ArrayList<>();
-    static ArrayList<Classification> eachPlayerCard = new ArrayList<>();
-    //Create an enum class that contains ranks of cards.
+    /**The maximum amount of cards in one hand.**/
+    private static final int ONEHASCARDS = 5;
+
+    /**Representing serial numbers of players.**/
+    private static ArrayList<Integer> playerID = new ArrayList<>();
+
+    /**Representing the classification of one hand.**/
+    private static ArrayList<Combination.Classification> handClass = new ArrayList<>();
+
+    /**Representing the combination of each player **/
+    private static ArrayList<Combination> eachPlayerComb = new ArrayList<>();
+
+    /**Create an enum that contains ranks of cards.**/
     public enum Rank{
         TWO('2'),
         THREE('3'),
@@ -29,8 +38,12 @@ public class Poker {
         Queen('Q'),
         King('K'),
         Ace('A');
-        public static Rank valueOf(char val){
-            switch (val) {
+
+        /**Overload the valueOf method of enum. It will get a char-type argument, and return the corresponding
+         * enum-type member of enum Rank.
+         */
+        public static Rank valueOf(char rank){
+            switch (rank) {
                 case '2':
                     return TWO;
                 case '3':
@@ -61,13 +74,18 @@ public class Poker {
                     return null;
             }
         }
+
         private char rank;
+
         Rank(char rank){
             this.rank = rank;
         }
+
         public char getRank() {
             return this.rank;
         }
+
+        /** Overwrite the toString method of enum. */
         public String toString() {
             if(this.ordinal() < 8)
             {
@@ -84,14 +102,15 @@ public class Poker {
         }
     }
 
-    //Create an enum class that contains suits of cards.
+    /** Create an enum that contains suits of cards.**/
     public enum Suit{
         CLUB('C'),
         DIAMOND('D'),
         HEART('H'),
         SPADE('S');
-        public static Suit valueOf(char val){
-            switch (val){
+
+        public static Suit valueOf(char suit){
+            switch (suit){
                 case 'C':
                     return CLUB;
                 case 'D':
@@ -104,29 +123,39 @@ public class Poker {
                     return null;
             }
         }
+
         private char suit;
+
         Suit(char suit){
             this.suit = suit;
         }
+
         public char getSuit() {
             return this.suit;
         }
+
     }
 
 
-
-    //输出话语
-    public static void printOut(Classification.Category category, Classification player)
+    /**
+     * @Description To give the output that meets requirements, including classification of a hand and the result of
+     * a comparision, excluding playerID information.
+     * @Parameter [classification, playerComb]
+     * @return void
+     **/
+    private static void printOut(Combination.Classification classification, Combination playerComb)
     {
-        Rank highestOne = player.everyFiveCardRank.get(ONEHASCARDS-1);
-        int sameGroupSize = player.samePokerGroup.size();
-        if(sameGroupSize > 0)
+        Rank highestOne = playerComb.combCardRank.get(ONEHASCARDS-1);
+        int sameGroupSize = playerComb.sameRankGroup.size();
+        if(sameGroupSize > 0)       /*This hand must be N_of_a_kind.*/
         {
-            Rank largerSameOne = player.samePokerGroup.get(sameGroupSize-1);
-            Rank smallerSameOne = player.samePokerGroup.get(0);
-            switch(category)
-            {
+            /*If there is only one element in sameRankGroup, lagerSameOne will get that one. Otherwise, lagerSameOne
+             will get the one having higher priority in comparison, while smallerSameOne get the other one. */
+            Rank largerSameOne = playerComb.sameRankGroup.get(sameGroupSize-1);
+            Rank smallerSameOne = playerComb.sameRankGroup.get(0);
 
+            switch(classification)
+            {
                 case FourK:
                     System.out.println("Four " + largerSameOne + "s");
                     break;
@@ -144,9 +173,9 @@ public class Poker {
                     break;
             }
         }
-        else
+        else    /* This hand must be Straight, Flush, StraightFlush or High card.*/
         {
-            switch(category)
+            switch(classification)
             {
                 case StraightF:
                     System.out.println(highestOne + "-high straight flush");
@@ -173,7 +202,10 @@ public class Poker {
             System.exit(0);
         }
 
-        //构建包含Classification实例的数组以及每个玩家手牌类型的数组,还有playerID数组
+        /*Construct a Combination instance for every five cards, and the instance will be added into an Combination-type
+         * ArrayList, eachPlayerComb. Meanwhile, there will be a Classification-type ArrayList, handClass, and an
+         * Integer ArrayList, playerID.
+         */
         for(int i = 0; i < (args.length / 5) ; i ++ )
         {
             ArrayList<Rank> cardsRank = new ArrayList<>();
@@ -181,7 +213,7 @@ public class Poker {
             ArrayList<Rank> samePokerGroup = new ArrayList<>();
             for(int j = i * 5 ; j < (i + 1) * 5 ; j ++) {
                 if (Rank.valueOf(args[j].toUpperCase().charAt(0)) != null &&
-                        Suit.valueOf(args[j].toUpperCase().charAt(1)) != null)
+                        Suit.valueOf(args[j].toUpperCase().charAt(1)) != null)      /*should be valid card name.*/
                 {
 
                     cardsRank.add(Rank.valueOf(args[j].toUpperCase().charAt(0)));
@@ -194,63 +226,64 @@ public class Poker {
                  }
             }
             Collections.sort(cardsRank);
-            Collections.sort(cardsSuit);
-            Classification player = new Classification(cardsRank, cardsSuit, samePokerGroup );
-            Classification.Category category = player.whoAmI(player.everyFiveCardRank, player.everyFiveCardSuit);
-            eachPlayerCard.add(player);
-            handCat.add(category);
+            Collections.sort(cardsSuit);        /*Sort ArrayList in ascending order*/
+            Combination player = new Combination(cardsRank, cardsSuit, samePokerGroup );
+            Combination.Classification classification = player.whoAmI(player.combCardRank, player.combCardSuit);
+            eachPlayerComb.add(player);
+            handClass.add(classification);
             playerID.add(i);
         }
 
 
-        //输出每位玩家手牌的类型；
-        for(int i = 0; i < eachPlayerCard.size(); i++)
-        {
-            System.out.print("Player " + (i+1) + ": ");
-            printOut(handCat.get(i), eachPlayerCard.get(i));
-        }
+//        /*Output the each player's classification of cards*/
+//        for(int i = 0; i < eachPlayerComb.size(); i++)
+//        {
+//            System.out.print("Player " + (i+1) + ": ");
+//            printOut(handClass.get(i), eachPlayerComb.get(i));
+//        }
+//
+//        if(args.length == 5)
+//        {
+//            System.exit(0);
+//        }
 
-        if(args.length == 5)
-        {
-            System.exit(0);
-        }
-
-        //开始比较找出最后赢家或者draw
+        /*Start the comparison and find out winners, if there are more than one winners,
+        then those winners hold a draw */
         ArrayList<Integer> winner = new ArrayList<>();
-        if(Compare.isSameCat(handCat))          //如果都是同一类型的；
+        if(Compare.isSameClass(handClass))
         {
-            winner = Compare.sameCat(handCat.get(0), playerID, eachPlayerCard );
+            winner = Compare.sameClass(handClass.get(0), playerID, eachPlayerComb);
         }
         else
         {
-            ArrayList<Integer> winToNextTurn = Compare.diffCat(handCat);
-            if(winToNextTurn.size() > 1)
-            {
-                winner = Compare.sameCat(handCat.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerCard);
-            }
-            else
+            ArrayList<Integer> winToNextTurn = Compare.diffClass(handClass);
+            if(winToNextTurn.size() == 1)
             {
                 System.out.println("Player " + (winToNextTurn.get(0) + 1) + " wins.");
-                System.exit(0);
             }
-        }
-        if(winner.size() == 1)
-        {
-            System.out.println("Player " + (winner.get(0) + 1) + " wins.");
-        }
-        else if(winner.size() == 2)
-        {
-            System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
-        }
-        else
-        {
-            System.out.print("Players");
-            for(int i = 0; i < winner.size() - 2; i++)
+            else        /*More than (including) 2 players have same classification of hand*/
             {
-                System.out.print(" " + (winner.get(i) + 1) + ",");
+                winner = Compare.sameClass(handClass.get(winToNextTurn.get(0)), winToNextTurn, eachPlayerComb);
+                switch (winner.size())
+                {
+                    case 1:
+                        System.out.println("Player " + (winner.get(0) + 1) + " wins.");
+                        break;
+                    case 2:
+                        System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
+                        break;
+                    default:
+                        System.out.print("Players");
+                        for(int i = 0; i < winner.size() - 2; i++)
+                        {
+                            System.out.print(" " + (winner.get(i) + 1) + ",");
+                        }
+                        System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
+                                (winner.get(winner.size() - 1) + 1)+" draw.");
+
+
+                }
             }
-            System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
-                    (winner.get(winner.size() - 1) + 1)+" draw.");
         }
 
     }

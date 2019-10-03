@@ -9,12 +9,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Classification {
-    public ArrayList<Poker.Rank> samePokerGroup;   //这个array list用以记录每个Classification对象，也即玩家，手中的重复牌组
-    public ArrayList<Poker.Rank> everyFiveCardRank; //这个array list用以记录每个玩家的五张手牌的Rank
-    public ArrayList<Poker.Suit> everyFiveCardSuit; //
+public class Combination {
+    public ArrayList<Poker.Rank> sameRankGroup;   //这个array list用以记录每个Classification对象，也即玩家，手中的重复牌组
+    public ArrayList<Poker.Rank> combCardRank; //这个array list用以记录每个玩家的五张手牌的Rank
+    public ArrayList<Poker.Suit> combCardSuit; //
     //创建 categories of hand 的enum，包含了优先级
-    public enum Category
+    public enum Classification
     {
         HighC,               //High card
         OneP,               //One pair
@@ -28,12 +28,12 @@ public class Classification {
     }
 
     //TODO 初始化Classfication实例的时候记得ArrayList<Poker.Rank> cards需要排好序的
-    Classification(ArrayList<Poker.Rank> everyFiveCardRank, ArrayList<Poker.Suit> everyFiveCardSuit,
-                   ArrayList<Poker.Rank> sPG  )
+    Combination(ArrayList<Poker.Rank> combCardRank, ArrayList<Poker.Suit> combCardSuit,
+                ArrayList<Poker.Rank> sPG  )
     {
-        this.everyFiveCardRank = everyFiveCardRank;
-        this.everyFiveCardSuit = everyFiveCardSuit;
-        this.samePokerGroup = sPG;
+        this.combCardRank = combCardRank;
+        this.combCardSuit = combCardSuit;
+        this.sameRankGroup = sPG;
     }
 
 //    //Getter
@@ -74,19 +74,19 @@ public class Classification {
     }
 
     //判断是不是同花或者顺子或者同花顺；如果不是的话就返回null；
-    public Category straightAndFlush(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit )
+    public Classification straightAndFlush(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit )
     {
         if(isStraight(cardRank) && isFlush(cardSuit))
         {
-            return Category.StraightF;
+            return Classification.StraightF;
         }
         else if(isStraight(cardRank))
         {
-            return Category.Straight;
+            return Classification.Straight;
         }
         else if (isFlush(cardSuit))
         {
-            return Category.Flush;
+            return Classification.Flush;
         }
         else
         {
@@ -95,7 +95,7 @@ public class Classification {
     }
 
     //其余情况
-    public Category whichNK(ArrayList<Poker.Rank> cards) {
+    public Classification whichNK(ArrayList<Poker.Rank> cards) {
         int count = 0;    //cnt = 相同元素个数 - 1
         int flag = 0;   //flag用以将相同元素中的一个放入到tmp arraylist里面
         for (int i = 1; i < cards.size(); i++) {
@@ -105,48 +105,48 @@ public class Classification {
                 flag++;
                 if (flag == 1)
                 {
-                    samePokerGroup.add(cards.get(i - 1));
+                    sameRankGroup.add(cards.get(i - 1));
                 }
             }
             else {
                 flag = 0;
             }
         }
-        Collections.sort(samePokerGroup);
+        Collections.sort(sameRankGroup);
         switch (count) {
             case 0:
-                return Category.HighC;
+                return Classification.HighC;
             case 1:
-                return Category.OneP;
+                return Classification.OneP;
             case 2:
-                if(samePokerGroup.size() == 2)
+                if(sameRankGroup.size() == 2)
                 {
-                    return Category.TwoP;
+                    return Classification.TwoP;
                 }
                 else
                 {
-                    return Category.ThreeK;
+                    return Classification.ThreeK;
                 }
             case 3:
-                if(samePokerGroup.size() == 2)
+                if(sameRankGroup.size() == 2)
                 {
                     int cnt = 0;
                     for(Poker.Rank element : cards) //计算在samePokerGroup中的两个元素在cards中的重复次数，以判断谁是rank of 3 cards，谁是2
                     {
-                        if(element.equals(samePokerGroup.get(0)))
+                        if(element.equals(sameRankGroup.get(0)))
                         {
                             cnt ++;
                         }
                     }
                     if(cnt == 3)
                     {
-                        Collections.swap(samePokerGroup, 0, 1); //cnt==3说明samePokerGroup的第一位才是有高优先级的，所以把它排到后面，把原来的第二位排到第一位
+                        Collections.swap(sameRankGroup, 0, 1); //cnt==3说明samePokerGroup的第一位才是有高优先级的，所以把它排到后面，把原来的第二位排到第一位
                     }
-                    return Category.FullH;
+                    return Classification.FullH;
                 }
                 else
                 {
-                    return Category.FourK;
+                    return Classification.FourK;
                 }
             default:
                 return null;
@@ -154,7 +154,7 @@ public class Classification {
     }
 
     //total
-    public Category whoAmI(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit)
+    public Classification whoAmI(ArrayList<Poker.Rank> cardRank, ArrayList<Poker.Suit> cardSuit)
     {
         if(straightAndFlush(cardRank, cardSuit) != null)
         {

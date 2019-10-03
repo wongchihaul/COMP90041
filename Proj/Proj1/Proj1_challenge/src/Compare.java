@@ -12,7 +12,7 @@ import java.util.Collections;
 
 
 public class Compare {
-    public static boolean isSameCat(ArrayList<Classification.Category> handCat)
+    public static boolean isSameClass(ArrayList<Combination.Classification> handCat)
     {
         for(int i = 1; i < handCat.size(); i++)
         {
@@ -25,7 +25,7 @@ public class Compare {
     }
 
     //查看返回的winToNextTurn的长度；如果每个Cat都不同，那么返回的长度是1，其元素对应赢家；如果有两个或以上的相同，则返回整数类型array list，记录着玩家的ID，进入sameCat进行比较
-    public static ArrayList<Integer> diffCat(ArrayList<Classification.Category> handCat)
+    public static ArrayList<Integer> diffClass(ArrayList<Combination.Classification> handCat)
     {
         ArrayList<Integer> winToNextTurn = new ArrayList<>();
         for(int i = 0; i < handCat.size(); i++)
@@ -40,10 +40,10 @@ public class Compare {
     }
 
     //传入winToNextTurn对应的玩家的手牌Category！
-    public static ArrayList<Integer> sameCat(Classification.Category category,
-                               ArrayList<Integer> winToNextTurn,
-                               ArrayList<Classification> eachPlayerCard) {
-        switch (category) {
+    public static ArrayList<Integer> sameClass(Combination.Classification classification,
+                                               ArrayList<Integer> winToNextTurn,
+                                               ArrayList<Combination> eachPlayerCard) {
+        switch (classification) {
             case StraightF:
             case Straight:
                 return compSAndF(winToNextTurn, eachPlayerCard);
@@ -63,13 +63,13 @@ public class Compare {
     }
 
     //返回同花、顺子、同花顺的最后赢家们的ID(没+1的，要记得自己加)
-    public static ArrayList<Integer> compSAndF(ArrayList<Integer> winToNextTurn, ArrayList<Classification> eachPlayerCard)
+    public static ArrayList<Integer> compSAndF(ArrayList<Integer> winToNextTurn, ArrayList<Combination> eachPlayerCard)
     {
         ArrayList<Poker.Rank> firstCardRank = new ArrayList<>();
         ArrayList<Integer> winner = new ArrayList<>();
         for(int i = 0; i < winToNextTurn.size(); i++)
         {
-            Poker.Rank firstCard = eachPlayerCard.get(winToNextTurn.get(i)).everyFiveCardRank.get(0);
+            Poker.Rank firstCard = eachPlayerCard.get(winToNextTurn.get(i)).combCardRank.get(0);
             firstCardRank.add(firstCard); //winToNextTurn记录了玩家ID，然后在eachPlayerCard里面找已经排好序的第一张牌
         }
 
@@ -86,13 +86,13 @@ public class Compare {
 
     //返回4K, 3K, 1P的最后赢家们的ID(没+1的，要记得自己加);原因是只有一个拥有重复的数字
     public static ArrayList<Integer> compNK(ArrayList<Integer> winToNextTurn,
-                                                   ArrayList<Classification> eachPlayerCard)
+                                                   ArrayList<Combination> eachPlayerCard)
     {
         ArrayList<Integer> nextTurn = new ArrayList<>();
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
         for(int i = 0; i < winToNextTurn.size(); i++)
         {
-            Poker.Rank NsCard = eachPlayerCard.get(winToNextTurn.get(i)).samePokerGroup.get(0);
+            Poker.Rank NsCard = eachPlayerCard.get(winToNextTurn.get(i)).sameRankGroup.get(0);
             toCompare.add(NsCard);
         }
         //TODO 我觉得这个把胜出者加到下一轮的这一part可以分离开来
@@ -106,7 +106,7 @@ public class Compare {
         //之后对比重复牌之外的牌的rank
         //先找出不重复的牌有多少张
         //然后再开始对比
-        Classification onePlayer = eachPlayerCard.get(nextTurn.get(0));
+        Combination onePlayer = eachPlayerCard.get(nextTurn.get(0));
         int cnt = otherRankCard(onePlayer).size(); //cnt为不重复的牌的张数；
 
         while (nextTurn.size() > 1 && cnt > 0)
@@ -133,12 +133,12 @@ public class Compare {
 
     //返回HighC的最后赢家们的ID(没+1的，要记得自己加)
     public static ArrayList<Integer> compHighC(ArrayList<Integer> winToNextTurn,
-                                            ArrayList<Classification> eachPlayerCard)
+                                            ArrayList<Combination> eachPlayerCard)
     {
         ArrayList<Integer> nextTurn = cloneList(winToNextTurn);
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
 
-        Classification onePlayer = eachPlayerCard.get(winToNextTurn.get(0));
+        Combination onePlayer = eachPlayerCard.get(winToNextTurn.get(0));
         int cnt = otherRankCard(onePlayer).size(); //cnt为不重复的牌的张数；
         while (nextTurn.size() > 1 && cnt > 0)
         {
@@ -164,13 +164,13 @@ public class Compare {
 
     //返回FullHouse和2P的最后赢家ID（要记得+1）;
     public static ArrayList<Integer> compHasTwoSameCards(ArrayList<Integer> winToNextTurn,
-                                               ArrayList<Classification> eachPlayerCard)
+                                               ArrayList<Combination> eachPlayerCard)
     {
         ArrayList<Integer> nextTurn = new ArrayList<>();
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
             for(int i = 0; i < winToNextTurn.size(); i++)
             {
-                Poker.Rank sameCard = eachPlayerCard.get(winToNextTurn.get(i)).samePokerGroup.get(1);
+                Poker.Rank sameCard = eachPlayerCard.get(winToNextTurn.get(i)).sameRankGroup.get(1);
                 toCompare.add(sameCard);
             }
             for(int j = 0; j < toCompare.size(); j++ )
@@ -189,7 +189,7 @@ public class Compare {
             toCompare.clear();
             for(int k = 0; k < nextTurnCopied1.size(); k++)
             {
-                Poker.Rank sameCard = eachPlayerCard.get(nextTurnCopied1.get(k)).samePokerGroup.get(0);
+                Poker.Rank sameCard = eachPlayerCard.get(nextTurnCopied1.get(k)).sameRankGroup.get(0);
                 toCompare.add(sameCard);
             }
             for(int m = 0; m < toCompare.size(); m++ )
@@ -203,7 +203,7 @@ public class Compare {
         //之后对比重复牌之外的牌的rank
         //先找出不重复的牌有多少张
         //然后再开始对比
-        Classification onePlayer = eachPlayerCard.get(nextTurn.get(0));
+        Combination onePlayer = eachPlayerCard.get(nextTurn.get(0));
         int cnt = otherRankCard(onePlayer).size(); //cnt为不重复的牌的张数；
 
         while (nextTurn.size() > 1 && cnt > 0)
@@ -230,10 +230,10 @@ public class Compare {
     }
 
     //传入一个classification实例，并且得到其不重复的手牌的rank
-    public static ArrayList<Poker.Rank> otherRankCard(Classification player)
+    public static ArrayList<Poker.Rank> otherRankCard(Combination player)
     {
-        ArrayList<Poker.Rank> cards = player.everyFiveCardRank;
-        ArrayList<Poker.Rank> samePokerGroup = player.samePokerGroup;
+        ArrayList<Poker.Rank> cards = player.combCardRank;
+        ArrayList<Poker.Rank> samePokerGroup = player.sameRankGroup;
         cards.removeAll(samePokerGroup);
         Collections.sort(cards);
         return cards;
