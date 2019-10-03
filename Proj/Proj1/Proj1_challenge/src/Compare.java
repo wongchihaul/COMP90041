@@ -162,7 +162,7 @@ public class Compare {
         return nextTurn;
     }
 
-    //返回FullHouse和2P的最后赢家ID（要记得+1）
+    //返回FullHouse和2P的最后赢家ID（要记得+1）;
     public static ArrayList<Integer> compHasTwoSameCards(ArrayList<Integer> winToNextTurn,
                                                ArrayList<Classification> eachPlayerCard)
     {
