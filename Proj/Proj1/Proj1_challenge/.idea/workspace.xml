@@ -3,14 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d2c9db59-14b0-4981-8ba1-cf40370be627" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Classification$Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Classification.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$Rank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$Rank.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$Suit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$Suit.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Combination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Combination.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compare.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
     </list>
@@ -89,7 +88,7 @@
     <configuration name="Poker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Poker" />
       <module name="Proj1_challenge" />
-      <option name="PROGRAM_PARAMETERS" value="KS 9S QS AS JS 3D 7C 3S 3H 7S" />
+      <option name="PROGRAM_PARAMETERS" value="qc jc 2h 7s 9h qd jd 2s 7c 9s 9c 7d 2c jh qh 9d 7h 2d js qs" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -123,7 +122,7 @@
       <workItem from="1569829237257" duration="1557000" />
       <workItem from="1569832340620" duration="28298000" />
       <workItem from="1570068422423" duration="1495000" />
-      <workItem from="1570080779497" duration="15912000" />
+      <workItem from="1570080779497" duration="22818000" />
     </task>
     <task id="LOCAL-00001" summary="Have a try to use branches">
       <created>1570069668919</created>
@@ -153,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570089016035</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="优化注释完Compare.java, 完成进度(2.99999/3),等待学校server测试">
+      <created>1570109628090</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1570109628090</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,17 +222,7 @@
     <MESSAGE value="优化注释完Poker.java, 完成进度(1/3)" />
     <MESSAGE value="真·优化注释完Poker.java, 完成进度(1/3)" />
     <MESSAGE value="优化注释完Combination.java, 完成进度(2/3)" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化注释完Combination.java, 完成进度(2/3)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Poker.java</url>
-          <line>260</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="优化注释完Compare.java, 完成进度(2.99999/3),等待学校server测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化注释完Compare.java, 完成进度(2.99999/3),等待学校server测试" />
   </component>
 </project>

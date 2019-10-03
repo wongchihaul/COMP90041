@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Poker {
-    /**The maximum amount of cards in one hand.**/
+    /*The maximum amount of cards in one hand.*/
     private static final int ONEHASCARDS = 5;
 
-    /**Representing serial numbers (starts from 0) of players.**/
+    /*Representing serial numbers (starts from 0) of players.*/
     private static ArrayList<Integer> playerID = new ArrayList<>();
 
-    /**Representing the classification of one hand.**/
+    /*Representing the classification of one hand.*/
     private static ArrayList<Combination.Classification> handClass = new ArrayList<>();
 
-    /**Representing the combination of each player **/
+    /*Representing the combination of each player */
     private static ArrayList<Combination> eachPlayerComb = new ArrayList<>();
 
-    /**Create an enum that contains ranks of cards.**/
+    /*Create an enum that contains ranks of cards.*/
     public enum Rank{
         TWO('2'),
         THREE('3'),
@@ -39,9 +39,8 @@ public class Poker {
         King('K'),
         Ace('A');
 
-        /**Overload the valueOf method of enum. It will get a char-type argument, and return the corresponding
-         * enum-type member of enum Rank.
-         */
+        //Overload the valueOf method of enum. It will get a char-type argument, and return the corresponding
+        //enum-type member of enum Rank.
         public static Rank valueOf(char rank){
             switch (rank) {
                 case '2':
@@ -85,7 +84,7 @@ public class Poker {
             return this.rank;
         }
 
-        /** Overwrite the toString method of enum. */
+        //Overwrite the toString method of enum.
         public String toString() {
             if(this.ordinal() < 8)
             {
@@ -102,7 +101,7 @@ public class Poker {
         }
     }
 
-    /** Create an enum that contains suits of cards.**/
+    /*Create an enum that contains suits of cards.*/
     public enum Suit{
         CLUB('C'),
         DIAMOND('D'),
@@ -147,10 +146,10 @@ public class Poker {
     {
         Rank highestOne = playerComb.getCombCardRank().get(ONEHASCARDS-1);
         int sameGroupSize = playerComb.getSamePokerGroup().size();
-        if(sameGroupSize > 0)       /*This hand must be N_of_a_kind.*/
+        if(sameGroupSize > 0)       //This hand must be N_of_a_kind.
         {
-            /*If there is only one element in sameRankGroup, lagerSameOne will get that one. Otherwise, lagerSameOne
-             will get the one having higher priority in comparison, while smallerSameOne get the other one. */
+            //If there is only one element in sameRankGroup, lagerSameOne will get that one. Otherwise, lagerSameOne
+            // will get the one having higher priority in comparison, while smallerSameOne get the other one.
             Rank largerSameOne = playerComb.getSamePokerGroup().get(sameGroupSize-1);
             Rank smallerSameOne = playerComb.getSamePokerGroup().get(0);
 
@@ -197,22 +196,23 @@ public class Poker {
 
     private static void whoWins (ArrayList<Integer> winner)
     {
-        switch (winner.size())
+        if(winner.size() == 1)
         {
-            case 1:
-                System.out.println("Player " + (winner.get(0) + 1) + " wins.");
-                break;
-            case 2:
-                System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
-                break;
-            default:
-                System.out.print("Players");
-                for(int i = 0; i < winner.size() - 2; i++)
-                {
-                    System.out.print(" " + (winner.get(i) + 1) + ",");
-                }
-                System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
-                        (winner.get(winner.size() - 1) + 1)+" draw.");
+            System.out.println("Player " + (winner.get(0) + 1) + " wins.");
+        }
+        else if(winner.size() == 2)
+        {
+            System.out.println("Players " + (winner.get(0) + 1) +" and " + (winner.get(1) + 1) + " draw.");
+        }
+        else
+        {
+            System.out.print("Players");
+            for(int i = 0; i < winner.size() - 2; i++)
+            {
+                System.out.print(" " + (winner.get(i) + 1) + ",");
+            }
+            System.out.println(" " + (winner.get(winner.size() - 2) + 1) + " and " +
+                    (winner.get(winner.size() - 1) + 1)+" draw.");
         }
     }
 
@@ -269,8 +269,8 @@ public class Poker {
             System.exit(0);
         }
 
-        /*Start the comparison and find out winners, if there are more than one winners,
-        then those winners hold a draw */
+        /*Start the comparison and find out the winner, and if there are more than one winners,
+        then find out those who hold a draw. */
         ArrayList<Integer> winner;
         if(Compare.isSameClass(handClass))
         {

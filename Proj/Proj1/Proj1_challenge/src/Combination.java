@@ -38,7 +38,6 @@ class Combination {
         this.sameRankGroup = sameRankGroup;
     }
 
-    //Getter
     ArrayList<Poker.Rank> getSamePokerGroup() {
         return sameRankGroup;
     }
@@ -70,7 +69,7 @@ class Combination {
     }
 
     /*Input: ascending sorted Rank-type ArrayList*/
-    /*Compare two adjacent elements, if their ordinals are different by 1, then it is a straight*/
+    /*Compare every two adjacent elements, if their ordinals are different by 1, then it is a straight*/
     private static boolean isStraight(ArrayList<Poker.Rank> cards)
     {
         for(int i = 1; i < cards.size(); i++){
@@ -82,7 +81,7 @@ class Combination {
     }
 
     /*Input: ascending sorted Rank-type ArrayList*/
-    /*Compare two adjacent elements, if their ordinals are equal, then it is a flush*/
+    /*Compare every two adjacent elements, if all of their ordinals are equal, then it is a flush*/
     private static boolean isFlush(ArrayList<Poker.Suit> cards)
     {
         for(int i = 1; i < cards.size(); i++){
@@ -116,8 +115,8 @@ class Combination {
 
     /*To determine which N_of_a_kind the hand is and whether the hand is High Card or not*/
     public Classification whichNK(ArrayList<Poker.Rank> cards) {
-        int count = 0;    /*used to preliminary classify which N_of_a_Kind or High Card the hand may be*/
-        int flag = 0;   /*used to add distinct Ranks having same rank with others*/
+        int count = 0;    //used to preliminary classify which N_of_a_Kind or High Card the hand may be.
+        int flag = 0;   //used to add distinct Ranks having same rank with others.
         for (int i = 1; i < cards.size(); i++) {
             if (cards.get(i - 1).ordinal() == cards.get(i).ordinal())
             {
@@ -132,7 +131,7 @@ class Combination {
                 flag = 0;
             }
         }
-//        Collections.sort(sameRankGroup);
+
         switch (count) {
             case 0:
                 return Classification.HighC;
@@ -151,9 +150,9 @@ class Combination {
                 if(sameRankGroup.size() == 2)
                 {
                     int cnt = 0;
-                    /*Calculate the number of repetitions of the first elements in the samePokerGroup in cards
-                     , in order to find out which one belongs to "three cards of same rank" */
-                    for(Poker.Rank element : cards) //计算在samePokerGroup中的两个元素在cards中的重复次数，以判断谁是rank of 3 cards，谁是2
+                    //Calculate the number of repetitions of the first elements in the samePokerGroup in cards
+                    //, in order to find out which one belongs to "three cards of same rank".
+                    for(Poker.Rank element : cards)
                     {
                         if(element.equals(sameRankGroup.get(0)))
                         {
@@ -162,9 +161,9 @@ class Combination {
                     }
                     if(cnt == 3)
                     {
-                        /*cnt=3 indicates that the first element of the samePokerGroup has high priority,
-                        so put it to the back and put the original second element to the first place.*/
-                        Collections.swap(sameRankGroup, 0, 1); //
+                        //cnt=3 indicates that the first element of the samePokerGroup has high priority,
+                        //so put it to the back and put the original second element to the first place.
+                        Collections.swap(sameRankGroup, 0, 1);
                     }
                     return Classification.FullH;
                 }
