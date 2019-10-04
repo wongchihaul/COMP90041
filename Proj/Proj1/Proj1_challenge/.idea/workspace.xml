@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2c9db59-14b0-4981-8ba1-cf40370be627" name="Default Changelist" comment="">
+    <list default="true" id="d2c9db59-14b0-4981-8ba1-cf40370be627" name="Default Changelist" comment="Server tests all pass. Finish writing comments. All Done.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Compare.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Proj1_challenge/Poker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Combination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Combination.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +120,8 @@
       <workItem from="1569832340620" duration="28298000" />
       <workItem from="1570068422423" duration="1495000" />
       <workItem from="1570080779497" duration="22944000" />
-      <workItem from="1570116820193" duration="841000" />
+      <workItem from="1570116820193" duration="996000" />
+      <workItem from="1570150887599" duration="513000" />
     </task>
     <task id="LOCAL-00001" summary="Have a try to use branches">
       <created>1570069668919</created>
@@ -160,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570116527177</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Server tests all pass. Finish writing comments. All Done.">
+      <created>1570117788121</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1570117788121</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,6 +237,7 @@
     <MESSAGE value="优化注释完Combination.java, 完成进度(2/3)" />
     <MESSAGE value="优化注释完Compare.java, 完成进度(2.99999/3),等待学校server测试" />
     <MESSAGE value="Server tests all pass. Done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Server tests all pass. Done." />
+    <MESSAGE value="Server tests all pass. Finish writing comments. All Done." />
+    <option name="LAST_COMMIT_MESSAGE" value="Server tests all pass. Finish writing comments. All Done." />
   </component>
 </project>

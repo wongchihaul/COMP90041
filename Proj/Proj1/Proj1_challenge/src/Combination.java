@@ -2,11 +2,11 @@
  * @Author Zhihao Huang
  * @LoginID zhihhuang
  * @ClassName Classification
- * @Description Combination.java documentation can be instantiated to represent a player's five cards, including their
- * ranks and suits, and the object also has an ArrayList containing Ranks which have same rank with others, but each
- * rank in list is distinct(e.g., say player has 8H, 8S, 9H, 9S, 7C, then sameRankGroup will add one 8 and one 9 in
- * list.) And the Combination class has an enum to represent 9 classifications as well.
- * IMPORTANT to mention : all ArrayLists are sorted in ascending order.
+ * @Description In Combination.java documentation, Combination classcan be instantiated to represent a player's five
+ * cards, including their ranks and suits, and the object also has an ArrayList containing Ranks which have same rank
+ * with others, but each rank in list is distinct(e.g., say player has 8H, 8S, 9H, 9S, 7C, then sameRankGroup will add
+ *  one 8 and one 9 in list.) And the Combination class has an enum to represent 9 classifications as well.
+ * !!IMPORTANT!! to mention : all ArrayLists are sorted in ascending order.
  * @date 2019-09-30 18:33
  **/
 

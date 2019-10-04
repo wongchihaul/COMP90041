@@ -121,31 +121,32 @@ class Compare {
      **/
     private static void nextTurn_same(ArrayList<Integer> candidate, ArrayList<Integer> winToNextTurn,
                                       ArrayList<Poker.Rank> toCompare, ArrayList<Combination> eachPlayerComb,
-                                      int samePokerGroupSize, boolean isStraight)
+                                      int samePokerGroupSize)
     {
 
         for (Integer i : candidate)
         {
             Poker.Rank cardToCompare;
-            if(isStraight)
-            {
+            switch (samePokerGroupSize) {
                 //for straight or straight flush, we can just compare the rank of first card to know who is the winner.
-                cardToCompare = eachPlayerComb.get(i).getCombCardRank().get(0);
-            }
-            else
-            {
+                case 0:
+                    cardToCompare = eachPlayerComb.get(i).getCombCardRank().get(0);
+                    break;
+
                 //SamePokerGroup is sorted by ascending order, and we should compare the one that has higher priority.
-                if (samePokerGroupSize == 1)
-                {
+                case 1:
                     cardToCompare = eachPlayerComb.get(i).getSamePokerGroup().get(0);
-                }
-                else    //samePokerGroupSize == 2; and only this case makes sense.
-                {
+                    break;
+                case 2:
                     cardToCompare = eachPlayerComb.get(i).getSamePokerGroup().get(1);
-                }
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + samePokerGroupSize);
             }
+
             toCompare.add(cardToCompare);
         }
+
         for(int j = 0; j < toCompare.size(); j ++)
         {
             //Find out those elements of toCompare ArrayList that equals the maximum element of this ArrayList and add
@@ -216,7 +217,7 @@ class Compare {
     {
         ArrayList<Integer> winToNextTurn = new ArrayList<>();
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
-        nextTurn_same(candidate, winToNextTurn, toCompare,eachPlayerComb, 0, true);
+        nextTurn_same(candidate, winToNextTurn, toCompare,eachPlayerComb, 0);
         return winToNextTurn;
     }
 
@@ -226,7 +227,7 @@ class Compare {
     {
         ArrayList<Integer> winToNextTurn = new ArrayList<>();
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
-        nextTurn_same(candidate, winToNextTurn, toCompare, eachPlayerComb, 1, false);
+        nextTurn_same(candidate, winToNextTurn, toCompare, eachPlayerComb, 1);
         nextTurn_other(winToNextTurn, toCompare, eachPlayerComb);
         return winToNextTurn;
     }
@@ -247,7 +248,7 @@ class Compare {
     {
         ArrayList<Integer> winToNextTurn = new ArrayList<>();
         ArrayList<Poker.Rank> toCompare = new ArrayList<>();
-        nextTurn_same(candidate,winToNextTurn,toCompare,eachPlayerComb, 2, false);
+        nextTurn_same(candidate,winToNextTurn,toCompare,eachPlayerComb, 2);
         if(winToNextTurn.size() == 1)
         {
             return winToNextTurn;
@@ -256,7 +257,7 @@ class Compare {
         winToNextTurn.clear();
         toCompare.clear();
 
-        nextTurn_same(copy,winToNextTurn,toCompare,eachPlayerComb, 1, false);
+        nextTurn_same(copy,winToNextTurn,toCompare,eachPlayerComb, 1);
 
         nextTurn_other(winToNextTurn, toCompare, eachPlayerComb);
         return winToNextTurn;
