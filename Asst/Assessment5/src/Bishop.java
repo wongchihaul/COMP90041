@@ -11,11 +11,14 @@ public class Bishop extends ChessPiece {
     }
     public boolean validMove(int toRow, int toColumn)
     {
-        return (Math.abs(toRow) == Math.abs(toColumn)) && super.validMove(toRow, toColumn);
+        return (Math.abs(toRow - this.getRow()) == Math.abs(toColumn - this.getColumn()))
+                && super.validMove(toRow, toColumn)
+//                && reachEdge(toRow, toColumn)
+                ;
     }
 
     public String toString()
     {
-        return "Bishop" + super.toString();
+        return "Bishop at (" + this.getRow() + "," + this.getColumn() + ")";
     }
 }

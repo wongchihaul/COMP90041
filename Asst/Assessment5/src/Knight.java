@@ -1,3 +1,5 @@
+
+
 /**
  * @Author Zhihao Huang
  * @LoginID zhihhuang
@@ -12,13 +14,14 @@ public class Knight extends ChessPiece {
 
     public boolean validMove(int toRow, int toColumn)
     {
-        return ((Math.abs(toRow) == 1 && Math.abs(toColumn) == 2) ||
-                    (Math.abs(toRow) == 2 && Math.abs(toColumn) == 1))
+        return ((Math.abs(toRow - this.getRow()) == 1 && Math.abs(toColumn - this.getColumn()) == 2) ||
+                    (Math.abs(toRow - this.getRow()) == 2 && Math.abs(toColumn - this.getColumn()) == 1))
                 && super.validMove(toRow, toColumn);
     }
 
     public String toString()
     {
-        return "Knight" + super.toString();
+        return "Knight at (" + this.getRow() + "," + this.getColumn() + ")";
     }
+
 }

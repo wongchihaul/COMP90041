@@ -13,12 +13,15 @@ public class Rook extends ChessPiece{
 
     public boolean validMove(int toRow, int toColumn)
     {
-        return (toRow == 0 || toColumn == 0) && super.validMove(toRow, toColumn);
+        return (toRow == this.getRow() || toColumn == this.getColumn())
+                && super.validMove(toRow, toColumn)
+//                && reachEdge(toRow, toColumn)
+                ;
     }
 
     public String toString()
     {
-        return "Rook" + super.toString();
+        return "Rook at (" + this.getRow() + "," + this.getColumn() + ")";
     }
 
 
